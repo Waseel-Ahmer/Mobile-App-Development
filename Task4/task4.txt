@@ -1,0 +1,75 @@
+Seed: 13 (t=1, u=3)
+Roll no: 04072313013
+Step 1
+------------Code----------
+class Dish {
+  late String name;
+  late int price;
+}
+void step1() {
+  print('--- Step 1 ---');
+  Dish item1 = Dish();
+  Dish item2 = Dish();
+  item1.name = menu[u];
+  item1.price = priceOf(u);
+  item2.name = menu[(u + 1) % 10];
+  item2.price = priceOf((u + 1) % 10);
+  item2.price = item2.price - u;
+  print('${item1.name}  Rs.${item1.price}');
+  print('${item2.name}  Rs.${item2.price}');
+}
+------------Output--------
+Samosa  Rs.124
+Brownie  Rs.128
+
+Seed: 13 (t=1, u=3)
+Roll no: 04072313013
+Step 2
+------------Code----------
+class MenuItem {
+  String name;
+  int price;
+  MenuItem(this.name, this.price) {
+    if (this.price < priceFloor) {
+      this.price = priceFloor;
+    }
+  }
+}
+void step2() {
+  print('--- Step 2 ---');
+  MenuItem a = MenuItem(menu[u], priceOf(u));
+  MenuItem b = MenuItem("Test Special", 15 * u);
+  print('${a.name}   Rs.${a.price}');
+  print('${b.name}   Rs.${b.price}');
+}
+------------Output--------
+Samosa   Rs.124
+Test Special   Rs.65
+
+Seed: 13 (t=1, u=3)
+Roll no: 04072313013
+Step 3
+------------Code----------
+MenuItem(this.name, this.price) {
+    if (this.price < priceFloor) {
+      this.price = priceFloor;
+    }
+  }
+  MenuItem.free(this.name) : price = 0;
+  MenuItem.fromString(String text)
+    : this.name = text.split(":")[0],
+      this.price = int.parse(text.split(":")[1]);
+void step3() {
+  print('--- Step 3 ---');
+  var freebie = MenuItem.free('Water');
+  var i = (u + 2) % 10;
+  var parsed = MenuItem.fromString('${menu[i]}:${priceOf(i)}');
+  print('${freebie.name}  Rs.${freebie.price}');
+  print('${parsed.name}  Rs.${parsed.price}');
+  print('floor=${priceFloor}, free price=${freebie.price} ');
+}
+------------Output--------
+Samosa   Rs.124
+Water  Rs.0
+Sandwich  Rs.138
+floor=65, free price=0 
