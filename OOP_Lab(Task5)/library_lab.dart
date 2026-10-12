@@ -34,7 +34,18 @@ final int shelfSize = 3 + u % 4; // items on the shelf in Steps 9-10
 abstract class LibraryItem {
   final String title;
   final int year;
-  LibraryItem(this.title, this.year);
+  static int created = 0;
+  LibraryItem(this.title, this.year) {
+    created++;
+  }
+  static int capFee(int fee) {
+    if (fee > feeCap) {
+      return feeCap;
+    } else {
+      return fee;
+    }
+  }
+
   String describe() => '$title ($year)';
   int lateFee(int days);
 }
@@ -156,6 +167,21 @@ class Fine {
   String toString() => 'Fine($amount)';
 }
 
+List<LibraryItem> buildShelf() {
+  List<LibraryItem> lst = [];
+  for (var k = 0; k <= shelfSize - 1; k++) {
+    var i = (u + k) % 10;
+    if (k % 3 == 0) {
+      lst.add(Book(titles[i], yearOf(i), 100 + 3 * seed));
+    } else if (k % 3 == 1) {
+      lst.add(Magazine(titles[i], yearOf(i), 1 + (t + k) % 12));
+    } else {
+      lst.add(Dvd(titles[i], yearOf(i), 90 + seed % 40));
+    }
+  }
+  return lst;
+}
+
 void main() {
   print('Seed: $seed (t=$t, u=$u)');
   step1();
@@ -271,6 +297,15 @@ void step8() {
 
 void step9() {
   print('--- Step 9 ---');
+  LibraryItem.created = 0;
+  buildShelf();
+  var shelf = buildShelf();
+  print('Step 9: items created = ${LibraryItem.created}');
+  print(
+    'Step 9: capped fee = ${LibraryItem.capFee(shelf.first.lateFee(daysBig))} (cap ${feeCap})',
+  );
+  print('Step 9: const copies identical? ${const Fine(10) == const Fine(10)}');
+  print('Step 9: new copies identical? ${Fine(10) == Fine(10)}');
 }
 
 void step10() {
