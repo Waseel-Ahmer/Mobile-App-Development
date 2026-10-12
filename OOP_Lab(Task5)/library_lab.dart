@@ -31,11 +31,12 @@ final int renewAttempts = 2 + u; // renewal attempts made in Step 5
 final int shelfSize = 3 + u % 4; // items on the shelf in Steps 9-10
 
 // ===========================================================================
-class LibraryItem {
+abstract class LibraryItem {
   final String title;
   final int year;
   LibraryItem(this.title, this.year);
   String describe() => '$title ($year)';
+  int lateFee(int days);
 }
 
 class Book extends LibraryItem {
@@ -43,6 +44,10 @@ class Book extends LibraryItem {
   Book(super.title, super.year, this.pages);
   @override
   String describe() => '${super.describe()}, $pages pages';
+  @override
+  int lateFee(int days) {
+    return days * feePerDay;
+  }
 }
 
 Book mainBook() {
@@ -54,11 +59,30 @@ class Magazine extends LibraryItem {
   Magazine(super.title, super.year, this.issue);
   @override
   String describe() => '${super.describe()}, issue: $issue';
+  @override
+  int lateFee(int days) {
+    return days * (feePerDay ~/ 2);
+  }
 }
 
 Magazine mainMagazine() {
   var i = (u + 1) % 10;
   return Magazine(titles[i], yearOf(i), 1 + (t + u) % 12);
+}
+
+class Dvd extends LibraryItem {
+  final int minutes;
+  Dvd(super.title, super.year, this.minutes);
+  String describe() => '${super.describe()}, $minutes minutes';
+  @override
+  int lateFee(int days) {
+    return days * feePerDay * 2;
+  }
+}
+
+Dvd mainDvd() {
+  var i = (u + 2) % 10;
+  return Dvd(titles[i], yearOf(i), 90 + seed % 40);
 }
 
 void main() {
@@ -92,6 +116,13 @@ void step2() {
 
 void step3() {
   print('--- Step 3 ---');
+  var bk = mainBook();
+  var m = mainMagazine();
+  var d = mainDvd();
+  var days = 7;
+  print('Step 3: Book late fee for ${days} days = ${bk.lateFee(days)}');
+  print('Step 3: Magazine late fee for ${days} days = ${m.lateFee(days)} ');
+  print('Step 3: Dvd late fee for ${days} days = ${d.lateFee(days)} ');
 }
 
 void step4() {
