@@ -215,14 +215,17 @@ void step1() {
   print('Step 1: ${b.title} (${b.year}), ${b.pages} pages');
   print('Step 1: stored as LibraryItem: ${item.title}');
   print('Step 1: runtimeType = ${item.runtimeType} ');
+  //item.pages
 }
 
+//LiraryItem class doesnt have any pages attribute and it belongs to its child class i.e Book(Downcsting) so item.pages is giving error.
 void step2() {
   print('--- Step 2 ---');
   print('Step 2: ${mainBook().describe()}');
   print('Step 2: ${mainMagazine().describe()}');
 }
 
+// This would result in formation of child clss's own method instead of the overrided method of parent.
 void step3() {
   print('--- Step 3 ---');
   var bk = mainBook();
@@ -232,8 +235,10 @@ void step3() {
   print('Step 3: Book late fee for ${days} days = ${bk.lateFee(days)}');
   print('Step 3: Magazine late fee for ${days} days = ${m.lateFee(days)} ');
   print('Step 3: Dvd late fee for ${days} days = ${d.lateFee(days)} ');
+  //LibraryItem('x', 2000); //error:Abstract classes cant e initiated
 }
 
+//Abstract CLass is just a blueprint that is used to implement other child classes using the same parent blueprint without adding parent class code in chil. so thats why abstract classes cant be reated directly.
 void step4() {
   print('--- Step 4 ---');
   var book = mainBook();
@@ -249,6 +254,7 @@ void step4() {
   );
 }
 
+//using extends Borrowable would have included all the code of Borrowable class into its child classes plus Book already extends LibraryItem class so it would have caused multiple inheritence problem which is nt possible in dart. So the easy way to use the Borrowable blueprint is by implements keyword
 void step5() {
   print('--- Step 5 ---');
   var book = mainBook();
@@ -268,6 +274,7 @@ void step5() {
   print('Step 5: dvd can renew too? ${mainDvd().renew(1)} ');
 }
 
+// mixin is a better choice for renew funtionality as if it was inhertitance then it would have been part of all Library Item child classes but mixin llows us to embed renew funtionality into he classes hat we want
 void step6() {
   print('--- Step 6 ---');
   var type = MemberType.values[seed % 3];
@@ -279,6 +286,7 @@ void step6() {
   print('Step 6: book fee ${fee} -> ${type.applyDiscount(fee)} after discount');
 }
 
+//MemberType.student is safer than student becaus eit provided compile time safety check, ensuring that we enter the correct student data rather than making a typo mistake. Moreover MemberType contains fixed set of vaulues like student, aculty etc. which retructs and minimies the risk of errors.
 void step7() {
   print('--- Step 7 ---');
   var type = MemberType.values[seed % 3];
@@ -293,6 +301,7 @@ void step7() {
   print('Step 7: initials of "${titles[u]}" = ${initials}');
   print('Step 7: shelf fee for ${days} days = ${myList.totalLateFee(days).rs}');
 }
+// We used extension as 72.rs bcause it allows us to chain multiple other funtions calls returning int and convert it into string. Additionally it provides a sugarcoated way to treat .rs as member funtion of int.
 
 void step8() {
   print('--- Step 8 ---');
@@ -320,6 +329,7 @@ void step9() {
   print('Step 9: new copies identical? ${Fine(10) == Fine(10)}');
 }
 
+//created can be read as LibraryItem.created without making any object first because it is a static variable that isnt associated with any specific Class instance
 void step10() {
   print('--- Step 10 ---');
   var days = 7;
