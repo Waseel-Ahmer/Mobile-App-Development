@@ -24,3 +24,7 @@ Step 5: dvd can renew too? true
 Step 6: member type = faculty (index 1) 
 Step 6: max loans = 10
 Step 6: book fee 42 -> 34 after discount
+--- Step 7 ---
+Step 7: Rs. 34
+Step 7: initials of "Operating Systems" = OS
+Step 7: shelf fee for 7 days = Rs. 147

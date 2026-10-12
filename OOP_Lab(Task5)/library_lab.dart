@@ -127,6 +127,21 @@ enum MemberType {
   int applyDiscount(int fee) => fee - ((discountPercent * fee) ~/ 100);
 }
 
+extension MoneyText on int {
+  String get rs => 'Rs. $this';
+}
+
+extension Initials on String {
+  String get initials {
+    var words = this.split(' ');
+    return words.map((init) => init[0]).join();
+  }
+}
+
+extension ShelfMath on List<LibraryItem> {
+  int totalLateFee(int days) => fold(0, (sum, i) => sum + i.lateFee(days));
+}
+
 void main() {
   print('Seed: $seed (t=$t, u=$u)');
   step1();
@@ -214,6 +229,17 @@ void step6() {
 
 void step7() {
   print('--- Step 7 ---');
+  var type = MemberType.values[seed % 3];
+  var bk = mainBook();
+  var days = 7;
+  var fee = bk.lateFee(days);
+  var discount = type.applyDiscount(fee);
+  var mytitle = titles[u];
+  var initials = mytitle.initials;
+  List<LibraryItem> myList = [mainBook(), mainMagazine(), mainDvd()];
+  print('Step 7: ${discount.rs}');
+  print('Step 7: initials of "${titles[u]}" = ${initials}');
+  print('Step 7: shelf fee for ${days} days = ${myList.totalLateFee(days).rs}');
 }
 
 void step8() {
