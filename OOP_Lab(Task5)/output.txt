@@ -38,3 +38,7 @@ Step 9: items created = 12
 Step 9: capped fee = 78 (cap 160)
 Step 9: const copies identical? true
 Step 9: new copies identical? true
+--- Step 10 ---
+Step 10: 6 items, 2 borrowable, 4 renewable 
+Step 10: S13 (faculty) owes Fine(238) 
+Step 10: over the cap? true 
