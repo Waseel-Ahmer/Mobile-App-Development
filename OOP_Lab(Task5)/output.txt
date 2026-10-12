@@ -9,3 +9,10 @@ Step 2: Mobile Design (2004), issue: 5
 Step 3: Book late fee for 7 days = 42
 Step 3: Magazine late fee for 7 days = 21 
 Step 3: Dvd late fee for 7 days = 84 
+--- Step 4 ---
+Step 4: available? true
+Step 4: after borrow? false
+Step 4: after return? true
+Step 4: Book borrowable? true
+Step 4: Magazine borrowable? false
+Step 4: Dvd borrowable? false
