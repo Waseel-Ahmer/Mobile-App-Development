@@ -20,3 +20,7 @@ Step 4: Dvd borrowable? false
 Step 5: renewed 3 of 5 attempts (limit 3) 
 Step 5: renew once more? false
 Step 5: dvd can renew too? true 
+--- Step 6 ---
+Step 6: member type = faculty (index 1) 
+Step 6: max loans = 10
+Step 6: book fee 42 -> 34 after discount
