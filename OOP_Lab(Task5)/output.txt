@@ -16,3 +16,7 @@ Step 4: after return? true
 Step 4: Book borrowable? true
 Step 4: Magazine borrowable? false
 Step 4: Dvd borrowable? false
+--- Step 5 ---
+Step 5: renewed 3 of 5 attempts (limit 3) 
+Step 5: renew once more? false
+Step 5: dvd can renew too? true 

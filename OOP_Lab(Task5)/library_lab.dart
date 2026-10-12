@@ -173,6 +173,21 @@ void step4() {
 
 void step5() {
   print('--- Step 5 ---');
+  var book = mainBook();
+  var renewAttempts = 5;
+  var renewLimit = 3;
+  var ok = 0;
+  var track = renewLimit;
+  while (track > 0) {
+    var check = book.renew(renewLimit);
+    if (check) {
+      ok++;
+    }
+    track--;
+  }
+  print('Step 5: renewed $ok of $renewAttempts attempts (limit $renewLimit) ');
+  print('Step 5: renew once more? ${book.renew(renewLimit)}');
+  print('Step 5: dvd can renew too? ${mainDvd().renew(1)} ');
 }
 
 void step6() {
