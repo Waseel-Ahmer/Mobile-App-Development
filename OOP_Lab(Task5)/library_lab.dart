@@ -328,10 +328,10 @@ void step10() {
   var total = list.fold(Fine(0), (sum, i) => sum + mem.feeFor(i, days));
   var canBorrow = 0;
   var canRenew = 0;
-  var borrow = list.forEach((item) {
+  list.forEach((item) {
     if (item is Borrowable) canBorrow++;
   });
-  var renew = list.forEach((item) {
+  list.forEach((item) {
     if (item is Renewable) canRenew++;
   });
   print(
