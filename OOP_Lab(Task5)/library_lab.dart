@@ -39,7 +39,7 @@ abstract class LibraryItem {
   int lateFee(int days);
 }
 
-class Book extends LibraryItem implements Borrowable {
+class Book extends LibraryItem with Renewable implements Borrowable {
   final int pages;
   bool _out = false;
   Book(super.title, super.year, this.pages);
@@ -83,7 +83,7 @@ Magazine mainMagazine() {
   return Magazine(titles[i], yearOf(i), 1 + (t + u) % 12);
 }
 
-class Dvd extends LibraryItem {
+class Dvd extends LibraryItem with Renewable {
   final int minutes;
   Dvd(super.title, super.year, this.minutes);
   String describe() => '${super.describe()}, $minutes minutes';
@@ -102,6 +102,18 @@ abstract class Borrowable {
   bool get isAvailable;
   void borrow();
   void giveBack();
+}
+
+mixin Renewable {
+  int renewals = 0;
+  bool renew(int limit) {
+    if (renewals >= limit) {
+      return false;
+    } else {
+      renewals++;
+      return true;
+    }
+  }
 }
 
 void main() {
