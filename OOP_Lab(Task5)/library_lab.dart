@@ -142,6 +142,20 @@ extension ShelfMath on List<LibraryItem> {
   int totalLateFee(int days) => fold(0, (sum, i) => sum + i.lateFee(days));
 }
 
+class Fine {
+  final int amount;
+  const Fine(this.amount);
+  Fine operator +(Fine o) => Fine(this.amount + o.amount);
+  bool operator >(Fine o) => this.amount > o.amount;
+  @override
+  bool operator ==(Object other) =>
+      (other is Fine && this.amount == other.amount);
+  @override
+  int get hashCode => this.amount.hashCode;
+  @override
+  String toString() => 'Fine($amount)';
+}
+
 void main() {
   print('Seed: $seed (t=$t, u=$u)');
   step1();
@@ -244,6 +258,15 @@ void step7() {
 
 void step8() {
   print('--- Step 8 ---');
+  var bk = mainBook();
+  var m = mainMagazine();
+  var days = 7;
+  var f1 = Fine(bk.lateFee(days));
+  var f2 = Fine(m.lateFee(days));
+  print('Step 8: ${f1} + ${f2} = ${f1 + f2}');
+  print('Step 8: first bigger? ${f1} > ${f2} ');
+  print('Step 8: equal copies? ${f1 == Fine(f1.amount)}');
+  print('Step 8: set size = ${{f1, Fine(f1.amount), f2}.length} ');
 }
 
 void step9() {

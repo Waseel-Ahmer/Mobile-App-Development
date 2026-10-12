@@ -28,3 +28,8 @@ Step 6: book fee 42 -> 34 after discount
 Step 7: Rs. 34
 Step 7: initials of "Operating Systems" = OS
 Step 7: shelf fee for 7 days = Rs. 147
+--- Step 8 ---
+Step 8: Fine(42) + Fine(21) = Fine(63)
+Step 8: first bigger? Fine(42) > Fine(21) 
+Step 8: equal copies? true
+Step 8: set size = 2 
