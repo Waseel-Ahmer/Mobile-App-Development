@@ -37,7 +37,7 @@ final List<String> lifecycleLog = <String>[];
 
 void main() => runApp(const LabApp());
 
-// Keep the name LabApp and its const constructor: the checker uses them.
+// Stateless: It only configures the root application structure and its properties never change.
 class LabApp extends StatelessWidget {
   const LabApp({super.key});
 
@@ -48,6 +48,7 @@ class LabApp extends StatelessWidget {
   }
 }
 
+// Stateless: It acts as a static layout container to arrange other widgets on the screen.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -60,8 +61,11 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // 1. StudentCard
             StudentCard(name: studentName, roll: rollNo, course: course),
             const SizedBox(height: 12),
+
+            // 2. The info Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -71,10 +75,16 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
+
+            // 3. Tally (which contains GoalBanner inside it)
             const Tally(),
             const SizedBox(height: 12),
-            const Countdown(), // Added here!
+
+            // 4. Countdown (which contains Builds inside it)
+            const Countdown(),
             const SizedBox(height: 12),
+
+            // 5. BuggyCounter
             const BuggyCounter(),
           ],
         ),
@@ -83,6 +93,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+// Stateless: It only displays the final strings passed into its constructor.
 class StudentCard extends StatelessWidget {
   final String name;
   final String roll;
@@ -113,6 +124,7 @@ class StudentCard extends StatelessWidget {
   }
 }
 
+// Stateless: It calculates percentage based only on the inputs it receives and holds no dynamic state of its own.
 class GoalBanner extends StatelessWidget {
   final int count;
   final int max;
@@ -129,6 +141,7 @@ class GoalBanner extends StatelessWidget {
   }
 }
 
+// Stateful: It tracks, updates, and rebuilds the interface when its internal `_count` variable changes using buttons.
 class Tally extends StatefulWidget {
   const Tally({super.key});
 
@@ -192,7 +205,7 @@ class _TallyState extends State<Tally> {
   }
 }
 
-// ---- Provided for Step 7. It has a bug on purpose. Do not rename anything.
+// Stateful: It maintains and changes `_clicks` variable based on user interaction to rebuild its text output.
 class BuggyCounter extends StatefulWidget {
   const BuggyCounter({super.key});
 
@@ -223,6 +236,7 @@ class _BuggyCounterState extends State<BuggyCounter> {
   }
 }
 
+// Stateful: It maintains Timer and dynamically updates its `_left` and `_builds` variables over time.
 class Countdown extends StatefulWidget {
   const Countdown({super.key});
 
@@ -261,7 +275,8 @@ class _CountdownState extends State<Countdown> {
     if (_left > 0) {
       countdownText = Text('Time left: $_left s', key: const Key('time-left'));
     } else {
-      countdownText = const Text('Time is up!', key: const Key('time-left'));
+      // Removed const from the line below as a part of task 10.2
+      countdownText = const Text('Time is up!', key: Key('time-left'));
     }
 
     return Column(
