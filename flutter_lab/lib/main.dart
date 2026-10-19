@@ -288,3 +288,19 @@ class _CountdownState extends State<Countdown> {
     );
   }
 }
+
+//Thinking questions
+//step1
+//runApp() receives the absolute root widget of the whole app and attaches it to the screen. MaterialApp as home recieves HomePage widget which is the default screen of the app.
+//step2
+// Stateless Widget fields must be final because they do not change once created. If we remove final keyword then compiler warns us that Stateless Widget is immutable so its respective fields should be final.
+//step3
+//Text('Max: ...') comes on the lowest level after travering 7 branches up from Text('Max: ...')
+//step4
+//GoalBanner is a StatelessWidget so it has no need for setState(). To make it show a new count its parent widget must be Stateful and manage the count as state and pass the new count value into GoalBanner's constructor during the rebuild.
+//step 5
+//There are 2 classes because this separation allows Flutter to efficiently throw away and redraw the UI configuration without losing the widget's internal data across those rebuilds because Tally is immutable that get destroyed and recreated during every render cycle but _TallyState is mutable and persistent.
+//step 6
+//On Hot Reload the count stays 12.It injects new code and rebuilds the widget tree, but it preserves the existing State objects in memory thus keeping the _count as it is.On Hot Restart the count resets to 6.It destroys all current State objects and creates brand new widgets and State objects.
+//step 9
+//It increases by one per second because the timer fires once every second, triggering a single setState() call, which causes one rebuild.To prove dispose() ran, you could output lifecycleLog inside the dispose() method after adding to the list.
