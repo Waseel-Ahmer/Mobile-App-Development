@@ -174,10 +174,12 @@ class Clock extends StatefulWidget {
 class _ClockState extends State<Clock> {
   late Timer _timer;
   int _seconds = startSec;
+  int _builds = 0; // Task 2.2
 
   @override
   void initState() {
     super.initState();
+    lifecycleLog.add('initState'); // Task 2.1
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() => _seconds += tick);
       if (_seconds >= stopAt) {
@@ -186,8 +188,26 @@ class _ClockState extends State<Clock> {
     });
   }
 
+  // Task 2.1
+  @override
+  void dispose() {
+    _timer.cancel();
+    lifecycleLog.add('dispose');
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Text('Session: $_seconds s', key: const Key('clock'));
+    _builds++; // Task 2.2
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // From Step 1
+        Text('Session: $_seconds s', key: const Key('clock')),
+        // Task 2.2
+        Text('Builds: $_builds', key: const Key('builds')),
+      ],
+    );
   }
 }
