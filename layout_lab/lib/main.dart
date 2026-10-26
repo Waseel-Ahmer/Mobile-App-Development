@@ -108,8 +108,18 @@ class HomePage extends StatelessWidget {
           children: [
             const SettingsCard(),
             const SizedBox(height: 12),
+
+            // Task 4.1: Welcome widget above the Clock
+            const Welcome(),
+            const SizedBox(height: 12),
+
             // Step 1: The Clock
             const Clock(),
+            const SizedBox(height: 12),
+
+            // Task 4.3: Row of Tiles below the Clock
+            Row(children: [Tile(tileA), Tile(tileB), Tile(tileC)]),
+
             // Add each new widget BELOW the previous one...
           ],
         ),
@@ -240,6 +250,40 @@ class Probe extends StatelessWidget {
         ),
         Text('Scaffold above me: $above', key: const Key('probe-above')),
       ],
+    );
+  }
+}
+
+class Welcome extends StatelessWidget {
+  const Welcome({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Welcome, $studentName', key: const Key('welcome')),
+    );
+  }
+}
+
+class Tile extends StatefulWidget {
+  final String label;
+
+  const Tile(this.label, {super.key});
+
+  @override
+  State<Tile> createState() => _TileState();
+}
+
+class _TileState extends State<Tile> {
+  int taps = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        setState(() => taps++);
+      },
+      child: Text('${widget.label}: $taps'),
     );
   }
 }
