@@ -118,8 +118,11 @@ class HomePage extends StatelessWidget {
             const SwapBoard(),
             const SizedBox(height: 12),
 
-            // Task 6.1: Add InfoPanel below SwapBoard
             const InfoPanel(),
+            const SizedBox(height: 12),
+
+            // Task 7.1: Add SummaryRow below InfoPanel
+            const SummaryRow(),
 
             // Add each new widget BELOW the previous one...
           ],
@@ -151,6 +154,7 @@ class SettingsCard extends StatelessWidget {
 }
 
 // ---- Provided for Step 7. It overflows on purpose. Do not rename anything.
+// ---- Provided for Step 7. It overflows on purpose. Do not rename anything.
 class SummaryRow extends StatelessWidget {
   const SummaryRow({super.key});
 
@@ -158,17 +162,23 @@ class SummaryRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          'Part A: read the widget tree of the $course board from top to bottom.',
-          key: const Key('sum-a'),
+        Expanded(
+          child: Text(
+            'Part A: read the widget tree of the $course board from top to bottom.',
+            key: const Key('sum-a'),
+          ),
         ),
-        Text(
-          'Part B: build each box from small widgets and never extend a built-in class.',
-          key: const Key('sum-b'),
+        Expanded(
+          child: Text(
+            'Part B: build each box from small widgets and never extend a built-in class.',
+            key: const Key('sum-b'),
+          ),
         ),
-        Text(
-          'Part C: break the layout on purpose, then fix it with Expanded or Wrap.',
-          key: const Key('sum-c'),
+        Expanded(
+          child: Text(
+            'Part C: break the layout on purpose, then fix it with Expanded or Wrap.',
+            key: const Key('sum-c'),
+          ),
         ),
       ],
     );
