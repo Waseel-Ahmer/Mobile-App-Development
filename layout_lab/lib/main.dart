@@ -109,16 +109,14 @@ class HomePage extends StatelessWidget {
             const SettingsCard(),
             const SizedBox(height: 12),
 
-            // Task 4.1: Welcome widget above the Clock
             const Welcome(),
             const SizedBox(height: 12),
 
-            // Step 1: The Clock
             const Clock(),
             const SizedBox(height: 12),
 
-            // Task 4.3: Row of Tiles below the Clock
-            Row(children: [Tile(tileA), Tile(tileB), Tile(tileC)]),
+            // Task 5.2: Replace the Row of Tiles with SwapBoard
+            const SwapBoard(),
 
             // Add each new widget BELOW the previous one...
           ],
@@ -284,6 +282,38 @@ class _TileState extends State<Tile> {
         setState(() => taps++);
       },
       child: Text('${widget.label}: $taps'),
+    );
+  }
+}
+
+class SwapBoard extends StatefulWidget {
+  const SwapBoard({super.key});
+
+  @override
+  State<SwapBoard> createState() => _SwapBoardState();
+}
+
+class _SwapBoardState extends State<SwapBoard> {
+  var tiles = [
+    Tile(tileA, key: ValueKey(tileA)),
+    Tile(tileB, key: ValueKey(tileB)),
+    Tile(tileC, key: ValueKey(tileC)),
+  ];
+
+  void swap() => setState(() => tiles = tiles.reversed.toList());
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(children: tiles),
+        ElevatedButton(
+          key: const Key('swap'),
+          onPressed: swap,
+          child: const Text('Swap'),
+        ),
+      ],
     );
   }
 }
