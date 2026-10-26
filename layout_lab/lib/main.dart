@@ -115,8 +115,11 @@ class HomePage extends StatelessWidget {
             const Clock(),
             const SizedBox(height: 12),
 
-            // Task 5.2: Replace the Row of Tiles with SwapBoard
             const SwapBoard(),
+            const SizedBox(height: 12),
+
+            // Task 6.1: Add InfoPanel below SwapBoard
+            const InfoPanel(),
 
             // Add each new widget BELOW the previous one...
           ],
@@ -312,6 +315,42 @@ class _SwapBoardState extends State<SwapBoard> {
           key: const Key('swap'),
           onPressed: swap,
           child: const Text('Swap'),
+        ),
+      ],
+    );
+  }
+}
+
+class InfoPanel extends StatelessWidget {
+  const InfoPanel({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Task 6.2: the Row
+        Row(
+          key: const Key('info-row'),
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween, // Based on your 'spaceBetween'
+          children: [
+            Text('Start: $startSec s', key: const Key('row-a')),
+            Text('Tick: $tick s', key: const Key('row-b')),
+            Text('Stop: $stopAt s', key: const Key('row-c')),
+          ],
+        ),
+        const SizedBox(height: 12),
+        // Task 6.3: the Column
+        Column(
+          key: const Key('info-col'),
+          crossAxisAlignment:
+              CrossAxisAlignment.center, // Based on your 'center'
+          children: [
+            Text('Name: $studentName', key: const Key('col-a')),
+            Text('Roll no: $rollNo', key: const Key('col-b')),
+            Text('Course: $course', key: const Key('col-c')),
+          ],
         ),
       ],
     );
